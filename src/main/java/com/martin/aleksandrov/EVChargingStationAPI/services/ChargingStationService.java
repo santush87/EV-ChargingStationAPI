@@ -7,6 +7,8 @@ import java.util.List;
 public interface ChargingStationService {
 
     boolean createNewChargingStation(ChargingStationDto newChargingStation);
-    List<ChargingStationDto> getAllStatitons();
-    ChargingStationDto getStation(String uniqueId);
+    List<ChargingStationDto> getAllStations();
+    ChargingStationDto getStationById(String uniqueId);
+    ChargingStationDto getStationByZipcode(String zipcode);
+    ChargingStationDto getStationByGeolocation(double lat, double lon);
 }
