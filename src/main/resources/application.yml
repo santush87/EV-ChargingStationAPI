@@ -3,13 +3,13 @@ spring:
         name: EV-ChargingStationAPI
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/ev-charging-station?createDatabaseIfNotExist=true
+        url: jdbc:mysql://localhost:3306/ev_charging_station?createDatabaseIfNotExist=true
         username: root
         password: ${MYSQL_PASS}
     jpa:
         defer-datasource-initialization: true
         hibernate:
-            ddl-auto: create-drop
+            ddl-auto: update
         sql:
             init:
                 mode: never

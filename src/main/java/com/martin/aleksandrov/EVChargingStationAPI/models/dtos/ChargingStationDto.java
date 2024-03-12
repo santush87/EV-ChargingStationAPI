@@ -13,10 +13,10 @@ public class ChargingStationDto {
     private String uniqueId;
 
     @NotNull
-    private Double geoCoordinatesLat;
+    private Double latitude;
 
     @NotNull
-    private Double geoCoordinatesLon;
+    private Double longitude;
 
     @NotNull
     private String zipcode;

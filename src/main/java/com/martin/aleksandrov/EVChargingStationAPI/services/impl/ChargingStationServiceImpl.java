@@ -5,6 +5,7 @@ import com.martin.aleksandrov.EVChargingStationAPI.models.entities.ChargingStati
 import com.martin.aleksandrov.EVChargingStationAPI.repositories.ChargingStationRepository;
 import com.martin.aleksandrov.EVChargingStationAPI.services.ChargingStationService;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +20,20 @@ public class ChargingStationServiceImpl implements ChargingStationService {
     private final ModelMapper modelMapper;
 
     @Override
-    public boolean createNewChargingStation(ChargingStationDto newChargingStation) {
+    public void createNewChargingStation(ChargingStationDto newChargingStation) throws BadRequestException {
         Optional<ChargingStationEntity> optionalEntity =
                 this.chargingStationRepository
                         .findChargingStationEntityByUniqueId(newChargingStation.getUniqueId());
 
         if (optionalEntity.isPresent()) {
-            return false;
+            throw new BadRequestException("Dublicate identifier");
         }
 
-        ChargingStationEntity chargingStation = this.modelMapper.map(optionalEntity, ChargingStationEntity.class);
+        ChargingStationEntity chargingStation =
+                this.modelMapper.map(newChargingStation, ChargingStationEntity.class);
 
         this.chargingStationRepository.save(chargingStation);
 
-        return true;
     }
 
     @Override
@@ -46,7 +47,8 @@ public class ChargingStationServiceImpl implements ChargingStationService {
 
     @Override
     public ChargingStationDto getStationById(String uniqueId) {
-        Optional<ChargingStationEntity> entityByUniqueId = this.chargingStationRepository.findChargingStationEntityByUniqueId(uniqueId);
+        Optional<ChargingStationEntity> entityByUniqueId =
+                this.chargingStationRepository.findChargingStationEntityByUniqueId(uniqueId);
 
         if (entityByUniqueId.isPresent()) {
             return this.modelMapper.map(entityByUniqueId, ChargingStationDto.class);
@@ -56,7 +58,8 @@ public class ChargingStationServiceImpl implements ChargingStationService {
 
     @Override
     public ChargingStationDto getStationByZipcode(String zipcode) {
-        Optional<ChargingStationEntity> entityByZipcode = this.chargingStationRepository.findChargingStationEntityByZipcode(zipcode);
+        Optional<ChargingStationEntity> entityByZipcode =
+                this.chargingStationRepository.findChargingStationEntityByZipcode(zipcode);
 
         if (entityByZipcode.isPresent()) {
             return this.modelMapper.map(entityByZipcode, ChargingStationDto.class);
@@ -65,9 +68,16 @@ public class ChargingStationServiceImpl implements ChargingStationService {
         return null;
     }
 
+//    @Override
+//    public void getStationByGeolocation(double lat, double lon, int distance) {
+//        Optional<ChargingStationEntity> geoCoordinates = this.chargingStationRepository.findChargingStationEntityByGeoCoordinatesLatAndGeoCoordinatesLon(lat, lon, distance);
+//
+////        return null;
+//    }
+
     @Override
-    public ChargingStationDto getStationByGeolocation(double lat, double lon) {
-        return null;
+    public void deleteChargingStation(String uniqueId) {
+        this.chargingStationRepository.deleteByUniqueId(uniqueId);
     }
 
 }
