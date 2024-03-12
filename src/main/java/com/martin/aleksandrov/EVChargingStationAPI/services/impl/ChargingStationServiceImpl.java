@@ -20,7 +20,19 @@ public class ChargingStationServiceImpl implements ChargingStationService {
 
     @Override
     public boolean createNewChargingStation(ChargingStationDto newChargingStation) {
-        return false;
+        Optional<ChargingStationEntity> optionalEntity =
+                this.chargingStationRepository
+                        .findChargingStationEntityByUniqueId(newChargingStation.getUniqueId());
+
+        if (optionalEntity.isPresent()) {
+            return false;
+        }
+
+        ChargingStationEntity chargingStation = this.modelMapper.map(optionalEntity, ChargingStationEntity.class);
+
+        this.chargingStationRepository.save(chargingStation);
+
+        return true;
     }
 
     @Override
