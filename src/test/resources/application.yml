@@ -1,0 +1,18 @@
+spring:
+  jpa:
+    hibernate:
+#      dialect: org.hibernate.dialect.HSQLDialect
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+    show-sql: false
+  datasource:
+#    url: jdbc:hsqldb:mem:testdb;sql.syntax_mys=true
+    url: jdbc:hsqldb:mem:testdb;sql.syntax_ora=true
+
+  sql:
+    init:
+      mode: never
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
