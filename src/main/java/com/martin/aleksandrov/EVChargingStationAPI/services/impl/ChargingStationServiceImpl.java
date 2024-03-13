@@ -1,5 +1,6 @@
 package com.martin.aleksandrov.EVChargingStationAPI.services.impl;
 
+import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationCreateDto;
 import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationDto;
 import com.martin.aleksandrov.EVChargingStationAPI.models.entities.ChargingStationEntity;
 import com.martin.aleksandrov.EVChargingStationAPI.repositories.ChargingStationRepository;
@@ -20,20 +21,25 @@ public class ChargingStationServiceImpl implements ChargingStationService {
     private final ModelMapper modelMapper;
 
     @Override
-    public void createNewChargingStation(ChargingStationDto newChargingStation) throws BadRequestException {
+    public ChargingStationDto createNewChargingStation(ChargingStationCreateDto newChargingStation) throws BadRequestException {
         Optional<ChargingStationEntity> optionalEntity =
                 this.chargingStationRepository
                         .findChargingStationEntityByUniqueId(newChargingStation.getUniqueId());
 
         if (optionalEntity.isPresent()) {
-            throw new BadRequestException("Dublicate identifier");
+            throw new BadRequestException("Duplicate identifier");
         }
 
         ChargingStationEntity chargingStation =
                 this.modelMapper.map(newChargingStation, ChargingStationEntity.class);
 
-        this.chargingStationRepository.save(chargingStation);
+        ChargingStationEntity savedEntity = this.chargingStationRepository.save(chargingStation);
 
+        System.out.println(savedEntity.getPoint());
+        ChargingStationDto stationDto = this.modelMapper.map(savedEntity, ChargingStationDto.class);
+        System.out.println("-----------");
+        System.out.println(stationDto.toString());
+        return stationDto;
     }
 
     @Override
@@ -68,12 +74,12 @@ public class ChargingStationServiceImpl implements ChargingStationService {
         return null;
     }
 
-//    @Override
-//    public void getStationByGeolocation(double lat, double lon, int distance) {
-//        Optional<ChargingStationEntity> geoCoordinates = this.chargingStationRepository.findChargingStationEntityByGeoCoordinatesLatAndGeoCoordinatesLon(lat, lon, distance);
-//
-////        return null;
-//    }
+    @Override
+    public List<ChargingStationDto> getNearStationsByGeolocationAndDistance(double lat, double lon, int distanceInMeters) {
+        return this.chargingStationRepository.findGeolocation(lat, lon, distanceInMeters).stream()
+                .map(location -> this.modelMapper.map(location, ChargingStationDto.class)).toList();
+    }
+
 
     @Override
     public void deleteChargingStation(String uniqueId) {
