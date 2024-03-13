@@ -1,23 +1,20 @@
 package com.martin.aleksandrov.EVChargingStationAPI.models.dtos;
 
-
-import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.locationtech.jts.geom.Point;
 
 @Getter
 @Setter
-public class ChargingStationDto {
+public class ChargingStationDto extends ChargingStationCreateDto{
 
-    @NotNull
-    private String uniqueId;
-
-    @NotNull
-    private Double latitude;
-
-    @NotNull
-    private Double longitude;
-
-    @NotNull
-    private String zipcode;
+//    TODO
+//    private Point point;
+//
+//    @Override
+//    public String toString() {
+//        return "ChargingStationDto{" +
+//                "point=" + point +
+//                '}';
+//    }
 }
