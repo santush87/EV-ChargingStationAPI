@@ -22,7 +22,7 @@ Follow these steps to run the EV-Charging Station API:
    If you haven't already, you can clone the repository using Git:
 
     ```bash
-    git clone https://github.com/santush87/ev-charging-station-api.git
+    git clone https://github.com/santush87/EV-ChargingStationAPI.git
     ```
 
    Alternatively, you can download the source code as a ZIP archive and extract it to your desired location.
@@ -37,7 +37,7 @@ Follow these steps to run the EV-Charging Station API:
    Navigate to the project directory and build the project using Gradle:
 
     ```bash
-    cd ev-charging-station-api
+    cd EV-ChargingStationAPI
     gradle build
     ```
 
@@ -46,7 +46,7 @@ Follow these steps to run the EV-Charging Station API:
    Once the build is successful, you can run the application using the following command:
 
     ```bash
-    java -jar build/libs/ev-charging-station-api.jar
+    java -jar build/libs/EV-ChargingStationAPI.jar
     ```
 
    This will start the Spring Boot application, and it will be accessible at `http://localhost:8080`.
