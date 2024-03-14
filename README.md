@@ -1,4 +1,4 @@
-# In Progress... !!!
+# In Progress... NOT FINISHED!!!
 
 # EV-Charging Station – API
 
