@@ -1,11 +1,16 @@
 package com.martin.aleksandrov.EVChargingStationAPI.api;
 
+import com.martin.aleksandrov.EVChargingStationAPI.exceptions.ChargingStationNotFoundException;
 import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationCreateDto;
 import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationDto;
 import com.martin.aleksandrov.EVChargingStationAPI.services.ChargingStationService;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.BadRequestException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -15,6 +20,7 @@ import java.util.List;
 public class ApiController {
 
     private final ChargingStationService service;
+    private final Logger logger = LoggerFactory.getLogger(ApiController.class);
 
     @GetMapping("/all")
     public List<ChargingStationDto> getAll() {
@@ -22,6 +28,7 @@ public class ApiController {
     }
 
     @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
     public ChargingStationDto newStation(@RequestBody ChargingStationCreateDto chargingStationDto) throws BadRequestException {
         return this.service.createNewChargingStation(chargingStationDto);
     }
@@ -35,13 +42,23 @@ public class ApiController {
     }
 
     @GetMapping("/charging-station/{uniqueId}")
-    public ChargingStationDto getStationByUniqueId(@PathVariable String uniqueId){
-        ChargingStationDto stationById = this.service.getStationById(uniqueId);
-        return stationById;
+    public ChargingStationDto getStationByUniqueId(@PathVariable String uniqueId) {
+        return this.service.getStationById(uniqueId);
     }
 
-    @PostMapping("/charging-station/{uniqueId}")
-    public void deleteStation(@PathVariable String uniqueId){
-        this.service.deleteChargingStation(uniqueId);
+    @GetMapping("/charging-station")
+    public ChargingStationDto getStationByZipcode(@RequestParam String zipcode) {
+        return this.service.getStationByZipcode(zipcode);
+    }
+
+    @DeleteMapping("/charging-station/delete")
+    public void deleteStation(@RequestParam String uniqueId) {
+        try {
+            this.service.deleteChargingStation(uniqueId);
+        } catch (ChargingStationNotFoundException exc) {
+            logger.info(exc.getMessage(), exc);
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, exc.getMessage(), exc);
+        }
     }
 }

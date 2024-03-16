@@ -18,4 +18,6 @@ public interface ChargingStationRepository extends JpaRepository<ChargingStation
     List<ChargingStationEntity> findGeolocation(double lat, double lon, int distance);
 
     void deleteByUniqueId(String uniqueId);
+
+    void deleteAllById(String id);
 }

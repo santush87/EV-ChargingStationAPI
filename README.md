@@ -60,7 +60,7 @@ The EV-Charging Station API provides the following endpoints:
 - `GET /api/charging-station?zipcode={zipcode}`: Returns the charging station(s) with the given zipcode.
 - `GET /api/near-stations?lat={lat}&lon={lon}&distanceInMeters={distanceInMeters}`: Returns a list of charging stations within a specified distance from the given latitude and longitude.
 - `POST /api/create`: Creates a new charging station.
-- `DELETE /api/delete/{unique_id}`: Deletes the charging station with the given ID.
+- `DELETE /api/charging-station/delete?uniqueId={unique_id}`: Deletes the charging station with the given ID.
 
 ## Testing
 
