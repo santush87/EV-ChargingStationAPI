@@ -6,4 +6,4 @@ COPY ./docker/entrypoint.sh /app/entrypoint.sh
 
 CMD chmod +x /app/entrypoint.sh
 
-ENTRYPOINT ["/app/entrypoint.sh", "mysql", "java", "-jar", "/app.jar", " -Dspring.config.location=file:/app/application.yml app.jar"]
+ENTRYPOINT ["/app/entrypoint.sh", "mysql", "java", "-jar", "/app.jar", " -Dspring.config.location=file:/app/application.yml"]

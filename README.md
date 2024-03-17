@@ -8,7 +8,7 @@ This project implements a RESTful interface for the storage and retrieval of cha
 
 Before running the project, ensure you have the following installed on your system:
 
-- Java Development Kit (JDK) version 8 or later
+- Java Development Kit (JDK) version 17 or later
 - Gradle
 - MySQL Server
 - Git (optional, if you want to clone the repository)
@@ -38,23 +38,32 @@ Follow these steps to run the EV-Charging Station API:
 
     ```bash
     cd EV-ChargingStationAPI
-    gradle build
+    gradle build -x test
     ```
 
-   This will compile the source code, run the unit tests, and package the application into a JAR file located in the `build/libs` directory.
+   This will compile the source code, and package the application into a JAR file located in the `build/libs` directory.
 
    Once the build is successful, you can run the application using the following command:
 
     ```bash
-    java -jar build/libs/EV-ChargingStationAPI.jar
+    java -jar build/libs/EV-ChargingStationAPI.jar -Dspring.config.location=file:/app/application.yml
     ```
 
    This will start the Spring Boot application, and it will be accessible at `http://localhost:8080`.
 
+## Running the tests
+Currently, the tests need a working MySQL database, that is required due to the dependency of geospatial data types 
+and indexes. We can use in memory MariaDB implementation, but for the purpose of this project we use a mysql database 
+via docker.
+
+```bash
+docker compose up mysql_test
+gradle test
+```
 ## Running the Project with Docker
 
 ### Prerequisites
-- JDK 8 or higher installed
+- JDK 17 or higher installed
 - Docker installed
 
 ### Instructions
@@ -65,7 +74,7 @@ Follow these steps to run the EV-Charging Station API:
      ```
    - For Linux:
      ```
-     ./gradlew build -x test
+     gradle build -x test
      ```
 
 2. **Create a custom network:**
@@ -89,11 +98,12 @@ Follow these steps to run the EV-Charging Station API:
      ```
    - For Linux:
      ```
-     ./gradlew test
+     gradle test
      ```
 
 ### Postman Collection
-To test the functionalities of the API, import the provided Postman collection file located in the `doc` folder: `Charging Stations API.postman_collection.json`.
+To test the functionalities of the API, import the provided Postman collection file located in the `doc` folder:
+[`/docs/Charging Stations API.postman_collection.json`.](/docs/Charging%20stations%20API.postman_collection.json)
 
 ## Note
 - Ensure that ports specified in the Docker configuration are available and not in use by any other application.
@@ -102,6 +112,8 @@ To test the functionalities of the API, import the provided Postman collection f
 ## API Endpoints
 
 Each charging station in this API is characterized by a unique ID, Geo-Coordinates (latitude, longitude), and zipcode/postcode. 
+Internally the search by distance is done using the MySQL geospatial functionality.
+The query speed could be improved by adding spatial index to the point column as a future improvement.
 
 The EV-Charging Station API provides the following endpoints:
 
