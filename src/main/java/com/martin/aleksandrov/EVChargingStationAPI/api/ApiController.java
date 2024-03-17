@@ -1,7 +1,6 @@
 package com.martin.aleksandrov.EVChargingStationAPI.api;
 
 import com.martin.aleksandrov.EVChargingStationAPI.exceptions.ChargingStationNotFoundException;
-import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationCreateDto;
 import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationDto;
 import com.martin.aleksandrov.EVChargingStationAPI.services.ChargingStationService;
 import lombok.AllArgsConstructor;
@@ -29,8 +28,8 @@ public class ApiController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public ChargingStationDto newStation(@RequestBody ChargingStationCreateDto chargingStationDto) throws BadRequestException {
-        return this.service.createNewChargingStation(chargingStationDto);
+    public void newStation(@RequestBody ChargingStationDto chargingStationDto) throws BadRequestException {
+        this.service.createNewChargingStation(chargingStationDto);
     }
 
     @GetMapping("/near-stations")

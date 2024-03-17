@@ -1,7 +1,6 @@
 package com.martin.aleksandrov.EVChargingStationAPI.services.impl;
 
 import com.martin.aleksandrov.EVChargingStationAPI.exceptions.ChargingStationNotFoundException;
-import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationCreateDto;
 import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationDto;
 import com.martin.aleksandrov.EVChargingStationAPI.models.entities.ChargingStationEntity;
 import com.martin.aleksandrov.EVChargingStationAPI.repositories.ChargingStationRepository;
@@ -23,7 +22,7 @@ public class ChargingStationServiceImpl implements ChargingStationService {
     private final ModelMapper modelMapper;
 
     @Override
-    public ChargingStationDto createNewChargingStation(ChargingStationCreateDto newChargingStation) throws BadRequestException {
+    public void createNewChargingStation(ChargingStationDto newChargingStation) throws BadRequestException {
         Optional<ChargingStationEntity> optionalEntity =
                 this.chargingStationRepository
                         .findChargingStationEntityByUniqueId(newChargingStation.getUniqueId());
@@ -35,13 +34,7 @@ public class ChargingStationServiceImpl implements ChargingStationService {
         ChargingStationEntity chargingStation =
                 this.modelMapper.map(newChargingStation, ChargingStationEntity.class);
 
-        ChargingStationEntity savedEntity = this.chargingStationRepository.save(chargingStation);
-
-        System.out.println(savedEntity.getPoint());
-        ChargingStationDto stationDto = this.modelMapper.map(savedEntity, ChargingStationDto.class);
-        System.out.println("-----------");
-        System.out.println(stationDto.toString());
-        return stationDto;
+       this.chargingStationRepository.save(chargingStation);
     }
 
     @Override

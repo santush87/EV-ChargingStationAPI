@@ -1,7 +1,6 @@
 package com.martin.aleksandrov.EVChargingStationAPI.services.impl;
 
 import com.martin.aleksandrov.EVChargingStationAPI.exceptions.ChargingStationNotFoundException;
-import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationCreateDto;
 import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationDto;
 import com.martin.aleksandrov.EVChargingStationAPI.repositories.ChargingStationRepository;
 import com.martin.aleksandrov.EVChargingStationAPI.services.ChargingStationService;
@@ -49,13 +48,13 @@ class ChargingStationServiceImplTest {
 
     @Test
     void testCreateChargingStationSuccessful() throws BadRequestException {
-        ChargingStationCreateDto stationTestDto = new ChargingStationCreateDto();
+        ChargingStationDto stationTestDto = new ChargingStationDto();
         stationTestDto.setUniqueId("id_2");
         stationTestDto.setLatitude(64.246);
         stationTestDto.setLongitude(62.157);
         stationTestDto.setZipcode("5461");
 
-//        The repository is empty and must be = 0
+//        The repository has 1 charging station at start
         assertEquals(1, this.stationRepository.count(),
                 "Test before adding the new charging station");
 
@@ -78,7 +77,7 @@ class ChargingStationServiceImplTest {
         assertEquals(1, this.stationService.getAllStations().size(),
                 "Test before adding the new charging station");
 
-        ChargingStationCreateDto stationTestDto = new ChargingStationCreateDto();
+        ChargingStationDto stationTestDto = new ChargingStationDto();
         stationTestDto.setUniqueId("id_2");
         stationTestDto.setLatitude(64.246);
         stationTestDto.setLongitude(62.157);
@@ -149,7 +148,7 @@ class ChargingStationServiceImplTest {
 
     @Test
     void testGetNearStationsByGeolocationAndDistance() throws BadRequestException {
-        ChargingStationCreateDto stationTestDtoSec = new ChargingStationCreateDto();
+        ChargingStationDto stationTestDtoSec = new ChargingStationDto();
         stationTestDtoSec.setUniqueId("id_Gabrovo");
         stationTestDtoSec.setLatitude(42.873499);
         stationTestDtoSec.setLongitude(25.318237);
