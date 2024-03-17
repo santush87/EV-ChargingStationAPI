@@ -62,6 +62,10 @@ The EV-Charging Station API provides the following endpoints:
 - `POST /api/create`: Creates a new charging station.
 - `DELETE /api/charging-station/delete?uniqueId={unique_id}`: Deletes the charging station with the given ID.
 
+## Postman collection
+
+You can find postman collection [here](/docs/Charging%20stations%20API.postman_collection.json)
+
 ## Testing
 
 Unit tests have been included in the project with a coverage of 80%. You can run the tests using Gradle:
