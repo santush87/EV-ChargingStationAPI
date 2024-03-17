@@ -9,13 +9,10 @@ import com.martin.aleksandrov.EVChargingStationAPI.services.ChargingStationServi
 import lombok.AllArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.MissingResourceException;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -91,12 +88,9 @@ public class ChargingStationServiceImpl implements ChargingStationService {
     public void deleteChargingStation(String uniqueId) {
         Optional<ChargingStationEntity> byUniqueId = this.chargingStationRepository.findChargingStationEntityByUniqueId(uniqueId);
         if (byUniqueId.isPresent()) {
-
            this.chargingStationRepository.deleteByUniqueId(uniqueId);
         } else {
-
             throw new ChargingStationNotFoundException("Missing charging station with such id");
         }
-
     }
 }
