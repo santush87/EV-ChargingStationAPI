@@ -51,7 +51,57 @@ Follow these steps to run the EV-Charging Station API:
 
    This will start the Spring Boot application, and it will be accessible at `http://localhost:8080`.
 
+## Running the Project with Docker
+
+### Prerequisites
+- JDK 8 or higher installed
+- Docker installed
+
+### Instructions
+1. **Build the project:**
+   - For Windows:
+     ```
+     .\gradlew.bat build -x test
+     ```
+   - For Linux:
+     ```
+     ./gradlew build -x test
+     ```
+
+2. **Create a custom network:**
+    ```
+    docker network create ev_network
+    ```
+
+3. **Run the Docker containers:**
+    ```
+    docker compose up
+    ```
+
+4. **After running the Docker containers, you can optionally run the test suite:**
+   - **Start the database container for tests:**
+     ```
+     docker compose up mysql_test
+     ```
+   - For Windows:
+     ```
+     .\gradlew.bat test
+     ```
+   - For Linux:
+     ```
+     ./gradlew test
+     ```
+
+### Postman Collection
+To test the functionalities of the API, import the provided Postman collection file located in the `doc` folder: `Charging Stations API.postman_collection.json`.
+
+## Note
+- Ensure that ports specified in the Docker configuration are available and not in use by any other application.
+- The provided Postman collection contains examples of API requests to try out the functionalities.
+
 ## API Endpoints
+
+Each charging station in this API is characterized by a unique ID, Geo-Coordinates (latitude, longitude), and zipcode/postcode. 
 
 The EV-Charging Station API provides the following endpoints:
 
