@@ -86,7 +86,7 @@ class ChargingStationServiceImplTest {
 
         this.stationService.createNewChargingStation(stationTestDto);
 
-//        After adding one more station, the size must be 2
+//        After adding one more charging station, the size must be 2
         assertEquals(2, this.stationService.getAllStations().size(),
                 "Test after adding the new charging station");
     }
