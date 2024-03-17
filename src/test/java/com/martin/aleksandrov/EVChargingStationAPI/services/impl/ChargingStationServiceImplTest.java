@@ -1,7 +1,6 @@
 package com.martin.aleksandrov.EVChargingStationAPI.services.impl;
 
 import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationCreateDto;
-import com.martin.aleksandrov.EVChargingStationAPI.models.dtos.ChargingStationDto;
 import com.martin.aleksandrov.EVChargingStationAPI.repositories.ChargingStationRepository;
 import com.martin.aleksandrov.EVChargingStationAPI.services.ChargingStationService;
 import org.apache.coyote.BadRequestException;
@@ -11,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class ChargingStationServiceImplTest {

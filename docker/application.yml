@@ -1,0 +1,19 @@
+spring:
+    application:
+        name: EV-ChargingStationAPI
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://mysql:3306/ev_charging_station?createDatabaseIfNotExist=true
+        username: test
+        password: test
+    jpa:
+        defer-datasource-initialization: true
+        hibernate:
+                ddl-auto: update
+
+                dialect: org.hibernate.dialect.MySQL8Dialect
+                format_sql: true
+                show_sql: false
+        sql:
+            init:
+                mode: never

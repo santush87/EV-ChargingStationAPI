@@ -32,7 +32,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.hibernate:hibernate-spatial:6.4.2.Final'
-	testImplementation('org.hsqldb:hsqldb')
+//	testImplementation('org.hsqldb:hsqldb')
+	testImplementation 'ch.vorburger.mariaDB4j:mariaDB4j:3.0.1'
 }
 
 tasks.named('test') {

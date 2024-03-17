@@ -10,11 +10,10 @@ spring:
         defer-datasource-initialization: true
         hibernate:
             ddl-auto: update
+
+            dialect: org.hibernate.dialect.MySQL8Dialect
+            format_sql: true
+            show_sql: false
         sql:
             init:
                 mode: never
-            properties:
-                hibernate:
-                    dialect: org.hibernate.dialect.MySQL8Dialect
-                    format_sql: true
-                    show_sql: false
