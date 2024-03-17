@@ -9,10 +9,10 @@ COPY . .
 COPY ./docker/entrypoint.sh /entrypoint.sh
 
 # Build the project using Gradle
-CMD chmod +x /app/gradlew
+RUN chmod +x+r /app/gradlew
 RUN /app/gradlew build -x test
 
-CMD chmod +x+r /entrypoint.sh
+RUN chmod +x+r /entrypoint.sh
 RUN dos2unix /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh", "java", "-Dspring.config.location=file:/app/docker/application.yml", "-jar", "/app/build/libs/EV-ChargingStationAPI-0.0.1-SNAPSHOT.jar"]
