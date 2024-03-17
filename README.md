@@ -38,7 +38,7 @@ Follow these steps to run the EV-Charging Station API:
 
     ```bash
     cd EV-ChargingStationAPI
-    gradle build -x test
+    gradlew build -x test
     ```
 
    This will compile the source code, and package the application into a JAR file located in the `build/libs` directory.
@@ -58,7 +58,7 @@ via docker.
 
 ```bash
 docker compose up mysql_test
-gradle test
+gradlew test
 ```
 ## Running the Project with Docker
 
@@ -67,27 +67,17 @@ gradle test
 - Docker installed
 
 ### Instructions
-1. **Build the project:**
-   - For Windows:
-     ```
-     .\gradlew.bat build -x test
-     ```
-   - For Linux:
-     ```
-     gradle build -x test
-     ```
-
-2. **Create a custom network:**
+1. **Create a custom network:**
     ```
     docker network create ev_network
     ```
 
-3. **Run the Docker containers:**
+2. **Run the Docker containers:**
     ```
     docker compose up
     ```
 
-4. **After running the Docker containers, you can optionally run the test suite:**
+3. **After running the Docker containers, you can optionally run the test suite:**
    - **Start the database container for tests:**
      ```
      docker compose up mysql_test
@@ -98,7 +88,7 @@ gradle test
      ```
    - For Linux:
      ```
-     gradle test
+     gradlew test
      ```
 
 ### Postman Collection
