@@ -1,5 +1,3 @@
-# In Progress... NOT FINISHED!!!
-
 # EV-Charging Station – API
 
 This project implements a RESTful interface for the storage and retrieval of charging station data. It is built using the Spring Framework and Java, with MySQL as the database.
